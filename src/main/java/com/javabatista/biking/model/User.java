@@ -2,6 +2,7 @@ package com.javabatista.biking.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,10 +13,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer id;
-    @OneToMany(mappedBy="user")
-    private Set<CyclingDay> cyclingDays;
-    @OneToMany(mappedBy="user")
-    private Set<CyclingMonth> cyclingMonths;
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+    private Set<CyclingDay> cyclingDays = new HashSet<>();
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+    private Set<CyclingMonth> cyclingMonths = new HashSet<>();
     @Column(length = 50, nullable = false)
     private String name;
     @Column(length = 20, nullable = false)
@@ -49,6 +50,11 @@ public class User {
 
     public void setCyclingDays(Set<CyclingDay> cyclingDays) {
         this.cyclingDays = cyclingDays;
+    }
+
+    public void setCyclingDay(CyclingDay cyclingDay) {
+        cyclingDay.setUser(this);
+        this.cyclingDays.add(cyclingDay);
     }
 
     public Set<CyclingMonth> getCyclingMonths() {
@@ -97,5 +103,17 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

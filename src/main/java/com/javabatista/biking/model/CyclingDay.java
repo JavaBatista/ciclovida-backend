@@ -13,8 +13,8 @@ public class CyclingDay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column()
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="user_id", nullable=false)//
     private User user;
     private LocalDate date;
     private Instant startTime;
@@ -62,6 +62,14 @@ public class CyclingDay {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getDate() {

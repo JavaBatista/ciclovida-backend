@@ -1,5 +1,7 @@
 package com.javabatista.biking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -12,7 +14,7 @@ public class CyclingMonth {
     @Column()
     private Integer id;
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name="user_id", nullable=false) //
     private User user;
     private LocalDate date;
     private Integer totalDays;
