@@ -15,7 +15,7 @@ public class CyclingDay {
     private Integer id;
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
-    private Integer userId;
+    private User user;
     private LocalDate date;
     private Instant startTime;
     private Instant finishTime;

@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "cycling_stats")
+@Table(name = "cycling_month")
 public class CyclingMonth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class CyclingMonth {
     private Integer id;
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
-    private Integer userId;
+    private User user;
     private LocalDate date;
     private Integer totalDays;
     private Double totalDistance;

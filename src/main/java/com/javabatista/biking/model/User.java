@@ -3,14 +3,19 @@ package com.javabatista.biking.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "user_info")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
-    @OneToMany(mappedBy="user_id")
+    @Column(name = "user_id")
     private Integer id;
+    @OneToMany(mappedBy="user")
+    private Set<CyclingDay> cyclingDays;
+    @OneToMany(mappedBy="user")
+    private Set<CyclingMonth> cyclingMonths;
     @Column(length = 50, nullable = false)
     private String name;
     @Column(length = 20, nullable = false)
@@ -20,7 +25,7 @@ public class User {
     @Column(length = 100, nullable = false)
     private String email;
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "tab_user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
     private List<String> roles = new ArrayList<>();
 
@@ -36,6 +41,22 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Set<CyclingDay> getCyclingDays() {
+        return cyclingDays;
+    }
+
+    public void setCyclingDays(Set<CyclingDay> cyclingDays) {
+        this.cyclingDays = cyclingDays;
+    }
+
+    public Set<CyclingMonth> getCyclingMonths() {
+        return cyclingMonths;
+    }
+
+    public void setCyclingMonths(Set<CyclingMonth> cyclingMonths) {
+        this.cyclingMonths = cyclingMonths;
     }
 
     public String getName() {
