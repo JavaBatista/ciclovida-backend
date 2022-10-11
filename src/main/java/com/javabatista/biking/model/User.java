@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tab_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
+    @OneToMany(mappedBy="user_id")
     private Integer id;
     @Column(length = 50, nullable = false)
     private String name;
@@ -17,6 +17,8 @@ public class User {
     private String username;
     @Column(length = 100, nullable = false)
     private String password;
+    @Column(length = 100, nullable = false)
+    private String email;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "tab_user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
@@ -58,6 +60,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<String> getRoles() {
