@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cycling_month")
@@ -14,7 +15,8 @@ public class CyclingMonth {
     @Column()
     private Integer id;
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false) //
+    @JoinColumn(name="user_id", nullable=false)
+    @JsonIgnore
     private User user;
     private LocalDate date;
     private Integer totalDays;
@@ -78,5 +80,18 @@ public class CyclingMonth {
                 ", totalDistance=" + totalDistance + " Km"+
                 ", totalTime=" + totalTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CyclingMonth)) return false;
+        CyclingMonth that = (CyclingMonth) o;
+        return id.equals(that.id) && user.equals(that.user) && date.equals(that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, date);
     }
 }

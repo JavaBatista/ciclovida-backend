@@ -39,28 +39,12 @@ public class StartApplication implements CommandLineRunner {
             user.setEmail("user@user.com");
             user.getRoles().add("USERS");
 //            CyclingDay cyclingDay = MockDbData.cyclingDayList.get(0);
-//            user.getCyclingDays().add(cyclingDay);
+//            user.setCyclingDay(cyclingDay);
 
             for (CyclingDay day: MockDbData.cyclingDayList) user.setCyclingDay(day);
 
             repository.save(user);
         }
-
-//        user = repository.getReferenceById(2);
-//        System.out.println(user);
-//        CyclingDay cyclingDay = MockDbData.cyclingDayList.get(0);
-//        user.getCyclingDays().add(cyclingDay);
-//        repository.save(user);
-
-//        CyclingDay cyclingDay = MockDbData.cyclingDayList.get(0);
-//        cyclingDay.setUser(user);
-//        cyclingDayRepository.save(cyclingDay);
-
-//        user = repository.getReferenceById(2);
-//        for (CyclingDay day: MockDbData.cyclingDayList) {
-//            user.getCyclingDays().add(day);
-//        }
-//        repository.save(user);
 
     }
 }

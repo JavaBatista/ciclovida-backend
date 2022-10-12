@@ -1,10 +1,13 @@
 package com.javabatista.biking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cycling_day")
@@ -13,8 +16,9 @@ public class CyclingDay {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column()
     private Integer id;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="user_id", nullable=false)//
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    @JsonIgnore
     private User user;
     private LocalDate date;
     private Instant startTime;
@@ -176,5 +180,18 @@ public class CyclingDay {
                 ", duration=" + duration +
                 ", cyclingQuality=" + cyclingQuality +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CyclingDay)) return false;
+        CyclingDay that = (CyclingDay) o;
+        return id.equals(that.id) && user.equals(that.user) && date.equals(that.date) && duration.equals(that.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, date, duration);
     }
 }

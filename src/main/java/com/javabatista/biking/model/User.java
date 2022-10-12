@@ -1,5 +1,7 @@
 package com.javabatista.biking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,8 +16,10 @@ public class User {
     @Column(name = "user_id")
     private Integer id;
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+    @JsonIgnore
     private Set<CyclingDay> cyclingDays = new HashSet<>();
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+    @JsonIgnore
     private Set<CyclingMonth> cyclingMonths = new HashSet<>();
     @Column(length = 50, nullable = false)
     private String name;
