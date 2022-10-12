@@ -4,6 +4,7 @@ import com.javabatista.biking.model.CyclingDay;
 import com.javabatista.biking.model.User;
 import com.javabatista.biking.repository.CyclingDayRepository;
 import com.javabatista.biking.repository.UserRepository;
+import com.javabatista.biking.service.MonthStats;
 import com.javabatista.biking.util.MockDbData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +18,8 @@ public class StartApplication implements CommandLineRunner {
     private UserRepository repository;
     @Autowired
     private CyclingDayRepository cyclingDayRepository;
+    @Autowired
+    private MonthStats stats;
     @Transactional
     @Override
     public void run(String... args) throws Exception {
@@ -41,9 +44,12 @@ public class StartApplication implements CommandLineRunner {
 //            CyclingDay cyclingDay = MockDbData.cyclingDayList.get(0);
 //            user.setCyclingDay(cyclingDay);
 
-            for (CyclingDay day: MockDbData.cyclingDayList) user.setCyclingDay(day);
+            for (CyclingDay day: MockDbData.cyclingDayList) {
+                user.setCyclingDay(day);
+            }
 
             repository.save(user);
+            stats.updateMonth(MockDbData.cyclingDayList, user);
         }
 
     }

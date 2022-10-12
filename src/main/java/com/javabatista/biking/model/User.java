@@ -69,6 +69,11 @@ public class User {
         this.cyclingMonths = cyclingMonths;
     }
 
+    public void setCyclingMonth(CyclingMonth cyclingMonth) {
+        cyclingMonth.setUser(this);
+        this.cyclingMonths.add(cyclingMonth);
+    }
+
     public String getName() {
         return name;
     }
