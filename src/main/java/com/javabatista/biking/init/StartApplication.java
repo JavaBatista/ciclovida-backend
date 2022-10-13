@@ -4,7 +4,7 @@ import com.javabatista.biking.model.CyclingDay;
 import com.javabatista.biking.model.User;
 import com.javabatista.biking.repository.CyclingDayRepository;
 import com.javabatista.biking.repository.UserRepository;
-import com.javabatista.biking.service.MonthStats;
+import com.javabatista.biking.service.UserService;
 import com.javabatista.biking.util.MockDbData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ public class StartApplication implements CommandLineRunner {
     @Autowired
     private CyclingDayRepository cyclingDayRepository;
     @Autowired
-    private MonthStats stats;
+    private UserService userService;
     @Transactional
     @Override
     public void run(String... args) throws Exception {
@@ -31,7 +31,7 @@ public class StartApplication implements CommandLineRunner {
             user.setPassword("admin1234");
             user.setEmail("admin@admin.com");
             user.getRoles().add("MANAGERS");
-            repository.save(user);
+            userService.createUser(user);
         }
         user = repository.findByUsername("user");
         if(user ==null){
@@ -41,15 +41,14 @@ public class StartApplication implements CommandLineRunner {
             user.setPassword("user1234");
             user.setEmail("user@user.com");
             user.getRoles().add("USERS");
-//            CyclingDay cyclingDay = MockDbData.cyclingDayList.get(0);
-//            user.setCyclingDay(cyclingDay);
+
+            userService.createUser(user);
+            user = repository.findByUsername("user");
 
             for (CyclingDay day: MockDbData.cyclingDayList) {
-                user.setCyclingDay(day);
+                userService.addDay(user, day);
             }
 
-            repository.save(user);
-            stats.updateMonth(MockDbData.cyclingDayList, user);
         }
 
     }
