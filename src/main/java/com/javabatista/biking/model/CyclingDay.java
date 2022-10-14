@@ -187,11 +187,11 @@ public class CyclingDay {
         if (this == o) return true;
         if (!(o instanceof CyclingDay)) return false;
         CyclingDay that = (CyclingDay) o;
-        return id.equals(that.id) && user.equals(that.user) && date.equals(that.date) && duration.equals(that.duration);
+        return user.equals(that.user) && date.equals(that.date) && duration.equals(that.duration);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, date, duration);
+        return Objects.hash(user, date, duration);
     }
 }

@@ -41,6 +41,10 @@ public class StartApplication implements CommandLineRunner {
         addUser("Maria Silva");
         addUser("Sergio Borges");
 
+        inserData("Gabriel Gomes");
+        inserData("Maria Silva");
+        inserData("Sergio Borges");
+
     }
 
     private void addUser(String name) {
@@ -55,11 +59,19 @@ public class StartApplication implements CommandLineRunner {
             user.getRoles().add("USERS");
 
             userService.createUser(user);
-            user = repository.findByUsername(firstName);
-
-            for (CyclingDay day: mockDbData.getCyclingDayList()) {
-                userService.addDay(user, day);
-            }
         }
     }
+
+    private void inserData(String name) {
+        String firstName = name.split(" ")[0].toLowerCase();
+        User user = repository.findByUsername(firstName);
+        if(user != null) {
+            for (CyclingDay day : mockDbData.getCyclingDayList()) {
+                userService.addDay(user, day);
+            }
+
+            repository.save(user);
+        }
+    }
+
 }
