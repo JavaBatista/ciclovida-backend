@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -45,27 +46,14 @@ public class StartApplication implements CommandLineRunner {
 
         addUser("Gabriel Gomes");
         addUser("Maria Silva");
-        addUser("Sergio Borges");
+//        addUser("Sergio Borges");
 
         inserData("Gabriel Gomes");
         inserData("Maria Silva");
-        inserData("Sergio Borges");
+//        inserData("Sergio Borges");
 
-        user = repository.findByUsername("gabriel");
-        List<CyclingDay> days = null;
-        List<CyclingMonth> months = null;
-        if(user !=null) {
-             days = cyclingDayRepository.findByYearAndMonth(user, 2022, 5);
-             months = cyclingMonthRepository.findByYear(user,2022);
-        }
-        if(days !=null)
-            for (CyclingDay day: days) {
-                System.out.println(day);
-            }
-        if(months !=null)
-            for (CyclingMonth month: months) {
-                System.out.println(month);
-            }
+//        testQuery("gabriel");
+
     }
 
     private void addUser(String name) {
@@ -93,6 +81,30 @@ public class StartApplication implements CommandLineRunner {
 
             repository.save(user);
         }
+    }
+
+    private void testQuery(String name) {
+        User user = repository.findByUsername(name);
+        List<CyclingDay> days = null;
+        List<CyclingMonth> months = null;
+        List<LocalDate> dates = null;
+        if(user !=null) {
+            days = cyclingDayRepository.findByYearAndMonth(user, 2022, 5);
+            months = cyclingMonthRepository.findByYear(user,2022);
+            dates = cyclingDayRepository.findDatesOfMonth(user, 2022, 5);
+        }
+        if(days !=null)
+            for (CyclingDay day: days) {
+                System.out.println(day);
+            }
+        if(months !=null)
+            for (CyclingMonth month: months) {
+                System.out.println(month);
+            }
+        if(dates !=null)
+            for (LocalDate date: dates) {
+                System.out.println(date);
+            }
     }
 
 }

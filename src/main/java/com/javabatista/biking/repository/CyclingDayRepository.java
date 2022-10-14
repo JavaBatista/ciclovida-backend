@@ -10,10 +10,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface CyclingDayRepository extends JpaRepository<CyclingDay, Integer> {
-    CyclingDay findByDateAndUser(LocalDate date, User user);
+    CyclingDay findByUserAndDate(User user, LocalDate date);
 
     List<CyclingDay> findAllByUser(User user);
 
     @Query("SELECT e FROM CyclingDay e WHERE e.user= (:user) AND EXTRACT(YEAR FROM DATE)= (:year) AND EXTRACT(MONTH FROM DATE)= (:month)")
     List<CyclingDay> findByYearAndMonth(@Param("user") User user, @Param("year") int year, @Param("month") int month);
+
+    @Query("SELECT e.date FROM CyclingDay e WHERE e.user= (:user) AND EXTRACT(YEAR FROM DATE)= (:year) AND EXTRACT(MONTH FROM DATE)= (:month)")
+    List<LocalDate> findDatesOfMonth(@Param("user") User user, @Param("year") int year, @Param("month") int month);
 }

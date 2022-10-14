@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CyclingMonthRepository extends JpaRepository<CyclingMonth, Integer> {
 
-    CyclingMonth findByDateAndUser(LocalDate date, User user);
+    CyclingMonth findByUserAndDate(User user, LocalDate date);
 
     @Query("SELECT e FROM CyclingMonth e WHERE e.user= (:user) AND EXTRACT(YEAR FROM DATE)= (:year)")
     List<CyclingMonth> findByYear(@Param("user") User user, @Param("year") int year);

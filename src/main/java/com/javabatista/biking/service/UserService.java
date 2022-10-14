@@ -42,7 +42,7 @@ public class UserService {
 
         LocalDate date = LocalDate.of(day.getDate().getYear(), day.getDate().getMonth(), 1);
 
-        CyclingMonth cyclingMonth = monthRepository.findByDateAndUser(date, user);
+        CyclingMonth cyclingMonth = monthRepository.findByUserAndDate(user,date);
         if (cyclingMonth == null) {
             cyclingMonth =new CyclingMonth();
             cyclingMonth.setDate(date);
