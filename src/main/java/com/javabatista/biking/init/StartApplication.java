@@ -20,6 +20,8 @@ public class StartApplication implements CommandLineRunner {
     private CyclingDayRepository cyclingDayRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MockDbData mockDbData;
     @Transactional
     @Override
     public void run(String... args) throws Exception {
@@ -55,7 +57,7 @@ public class StartApplication implements CommandLineRunner {
             userService.createUser(user);
             user = repository.findByUsername(firstName);
 
-            for (CyclingDay day: MockDbData.cyclingDayList) {
+            for (CyclingDay day: mockDbData.getCyclingDayList()) {
                 userService.addDay(user, day);
             }
         }

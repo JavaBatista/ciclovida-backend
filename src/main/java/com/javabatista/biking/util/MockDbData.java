@@ -2,20 +2,26 @@ package com.javabatista.biking.util;
 
 import com.javabatista.biking.model.CyclingDay;
 import com.javabatista.biking.model.WindCondition;
+import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.util.*;
 
-public class MockDbData {
-    public static final List<CyclingDay> cyclingDayList;
 
-    private static Instant createInstant(LocalTime localTime, LocalDate localDate) {
+public class MockDbData {
+    public  List<CyclingDay> cyclingDayList;
+
+    public List<CyclingDay> getCyclingDayList() {
+        return createCyclingDayList();
+    }
+
+    private  Instant createInstant(LocalTime localTime, LocalDate localDate) {
         return LocalDateTime.of(localDate, localTime)
                 .toInstant(ZoneId.systemDefault().getRules()
                         .getOffset(LocalDateTime.of(localDate, localTime)));
     }
 
-    private  static CyclingDay createCyclingDay( LocalDate date,
+    private  CyclingDay createCyclingDay( LocalDate date,
                                                  LocalTime startTime,
                                                  LocalTime finishTime,
                                                  LocalTime cyclingTime,
@@ -35,17 +41,17 @@ public class MockDbData {
         );
     }
 
-    private static WindCondition randomWindCondition() {
+    private  WindCondition randomWindCondition() {
         Random RANDOM = new Random();
         int pick = new Random().nextInt(WindCondition.values().length);
         return WindCondition.values()[pick];
     }
 
-    public static int random(int min, int max) {
+    private  int random(int min, int max) {
         return min + (int)(Math.random() * ((max - min) + 1));
     }
 
-    private  static LocalTime cyclingTime(Double distance, Double avgSpeed) {
+    private   LocalTime cyclingTime(Double distance, Double avgSpeed) {
         Double time = distance / avgSpeed;
         double horas = Math.floor(time);
         double minutos = Math.floor((time - horas)*60);
@@ -60,7 +66,7 @@ public class MockDbData {
 
 
 
-    public static List<CyclingDay> createCyclingDayList() {
+    private   List<CyclingDay> createCyclingDayList() {
         Random RANDOM = new Random();
 
         List<CyclingDay> daysList = new ArrayList<>(Collections.emptyList());
@@ -108,8 +114,4 @@ public class MockDbData {
         return daysList;
     }
 
-    static  {
-        cyclingDayList = createCyclingDayList();
-
-    }
 }
