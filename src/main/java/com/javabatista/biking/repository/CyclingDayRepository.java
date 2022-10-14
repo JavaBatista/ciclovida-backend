@@ -19,4 +19,7 @@ public interface CyclingDayRepository extends JpaRepository<CyclingDay, Integer>
 
     @Query("SELECT e.date FROM CyclingDay e WHERE e.user= (:user) AND EXTRACT(YEAR FROM DATE)= (:year) AND EXTRACT(MONTH FROM DATE)= (:month)")
     List<LocalDate> findDatesOfMonth(@Param("user") User user, @Param("year") int year, @Param("month") int month);
+
+    @Query("SELECT e.date FROM CyclingDay e WHERE e.user= (:user) AND EXTRACT(YEAR FROM DATE)= (:year)")
+    List<LocalDate> findDatesOfYear(@Param("user") User user, @Param("year") int year);
 }
