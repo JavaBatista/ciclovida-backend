@@ -26,40 +26,42 @@ public class UserController {
     @Autowired
     private CyclingMonthRepository monthRepository;
 
-    @GetMapping("day")
-    public CyclingDay getDay(@RequestBody UserRequest userRequest){
-        User user = repository.getReferenceById(userRequest.getUserId());
+    @GetMapping("/{userId}/day")
+    public CyclingDay getDay(@PathVariable("userId") int userId, @RequestParam(value = "date") String date){
+        User user = repository.getReferenceById(userId);
 
-        return daysRepository.findByUserAndDate(user, userRequest.getDate());
+        return daysRepository.findByUserAndDate(user, LocalDate.parse(date));
     }
 
-    @GetMapping("month/days")
-    public List<CyclingDay> getDaysOfMonth(@RequestBody UserRequest userRequest){
-        User user = repository.getReferenceById(userRequest.getUserId());
-
+    @GetMapping("/{userId}/days/month")
+    public List<CyclingDay> getDaysOfMonth(@PathVariable("userId") int userId, @RequestParam(value = "date") String date){
+        User user = repository.getReferenceById(userId);
+        LocalDate localDate = LocalDate.parse(date);
         return daysRepository.findByYearAndMonth(user,
-                userRequest.getDate().getYear(),
-                userRequest.getDate().getMonthValue());
+                localDate.getYear(),
+                localDate.getMonthValue());
     }
 
-    @GetMapping("month/dates")
-    public List<LocalDate> getDatesOfMonth(@RequestBody UserRequest userRequest){
-        User user = repository.getReferenceById(userRequest.getUserId());
-
+    @GetMapping("/{userId}/dates/month")
+    public List<LocalDate> getDatesOfMonth(@PathVariable("userId") int userId, @RequestParam(value = "date") String date){
+        User user = repository.getReferenceById(userId);
+        LocalDate localDate = LocalDate.parse(date);
         return daysRepository.findDatesOfMonth(user,
-                userRequest.getDate().getYear(),
-                userRequest.getDate().getMonthValue());
+                localDate.getYear(),
+                localDate.getMonthValue());
     }
 
-    @GetMapping("year/months/stats")
-    public List<CyclingMonth> getCyclingMonths(@RequestBody UserRequest userRequest) {
-        User user = repository.getReferenceById(userRequest.getUserId());
-        return monthRepository.findByYear(user, userRequest.getDate().getYear());
+    @GetMapping("/{userId}/stats/months/year")
+    public List<CyclingMonth> getCyclingMonths(@PathVariable("userId") int userId, @RequestParam(value = "date") String date) {
+        User user = repository.getReferenceById(userId);
+        LocalDate localDate = LocalDate.parse(date);
+        return monthRepository.findByYear(user, localDate.getYear());
     }
 
-    @GetMapping("year/dates")
-    public List<LocalDate> getDatesOfYear(@RequestBody UserRequest userRequest) {
-        User user = repository.getReferenceById(userRequest.getUserId());
-        return daysRepository.findDatesOfYear(user, userRequest.getDate().getYear());
+    @GetMapping("/{userId}/dates/year")
+    public List<LocalDate> getDatesOfYear(@PathVariable("userId") int userId, @RequestParam(value = "date") String date) {
+        User user = repository.getReferenceById(userId);
+        LocalDate localDate = LocalDate.parse(date);
+        return daysRepository.findDatesOfYear(user, localDate.getYear());
     }
 }
