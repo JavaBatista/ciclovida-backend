@@ -28,28 +28,36 @@ public class StartApplication implements CommandLineRunner {
             user = new User();
             user.setName("ADMIN");
             user.setUsername("admin");
-            user.setPassword("admin1234");
+            user.setPassword("admin123");
             user.setEmail("admin@admin.com");
             user.getRoles().add("MANAGERS");
             userService.createUser(user);
         }
-        user = repository.findByUsername("user");
+
+
+        addUser("Gabriel Gomes");
+        addUser("Maria Silva");
+        addUser("Sergio Borges");
+
+    }
+
+    private void addUser(String name) {
+        String firstName = name.split(" ")[0].toLowerCase();
+        User user = repository.findByUsername(firstName);
         if(user ==null){
             user = new User();
-            user.setName("USER");
-            user.setUsername("user");
-            user.setPassword("user1234");
-            user.setEmail("user@user.com");
+            user.setName(name);
+            user.setUsername(firstName);
+            user.setPassword(String.format("%s123", firstName));
+            user.setEmail(String.format("%s@user.com", firstName));
             user.getRoles().add("USERS");
 
             userService.createUser(user);
-            user = repository.findByUsername("user");
+            user = repository.findByUsername(firstName);
 
             for (CyclingDay day: MockDbData.cyclingDayList) {
                 userService.addDay(user, day);
             }
-
         }
-
     }
 }
