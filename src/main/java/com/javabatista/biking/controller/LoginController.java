@@ -17,16 +17,16 @@ public class LoginController {
     @Autowired
     private UserRepository repository;
 
-    @PostMapping("/login")
-    public UserRequest logar(@RequestBody Login login) {
-        UserRequest respnse = new UserRequest();
-        User user = repository.findByUsername(login.getUsername());
+    @GetMapping("/login")
+    public UserRequest logar(@RequestParam(value = "username") String username) {
+        UserRequest response = new UserRequest();
+        User user = repository.findByUsername(username);
 
         if(user!=null) {
-            respnse.setUserId(user.getId());
-            respnse.setDate(LocalDate.now());
+            response.setUserId(user.getId());
+            response.setDate(LocalDate.now());
         }
 
-    return  respnse;
+    return  response;
     }
 }
