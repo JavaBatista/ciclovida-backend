@@ -84,6 +84,7 @@ public class CyclingMonth {
     @Override
     public String toString() {
         return "CyclingStats{" +
+                "date=" + date +
                 "totalDays=" + totalDays +
                 ", totalDistance=" + totalDistance + " Km"+
                 ", totalTime=" + totalTime +
