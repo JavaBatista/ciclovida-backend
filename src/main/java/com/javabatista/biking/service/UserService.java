@@ -34,12 +34,8 @@ public class UserService {
         updateMonth(user, cyclingDay);
     }
 
-    private void updateMonths(User user, List<CyclingDay> cyclingDays) {
-
-        for (CyclingDay day: cyclingDays ) {
-            updateMonth(user, day);
-        }
-
+    public void updateDay(User user, CyclingDay cyclingDay) {
+        
     }
 
     private void updateMonth(User user, CyclingDay day) {
@@ -66,6 +62,12 @@ public class UserService {
         cyclingMonth.setUser(user);
         monthRepository.save(cyclingMonth);
 
+    }
+
+    private void updateMonths(User user, List<CyclingDay> cyclingDays) {
+        for (CyclingDay day: cyclingDays ) {
+            updateMonth(user, day);
+        }
     }
 
 }
