@@ -21,7 +21,10 @@ public class CyclingMonth {
     private LocalDate date;
     private Integer totalDays;
     private Double totalDistance;
+    @JsonIgnore
     private Duration totalTime;
+    @Transient
+    private String totalDuration = getTotalDuration();
 
     public CyclingMonth() {
     }
@@ -72,6 +75,20 @@ public class CyclingMonth {
 
     public void setTotalTime(Duration totalTime) {
         this.totalTime = totalTime;
+    }
+
+    public String getTotalDuration() {
+
+        if (totalTime != null) {
+            return String.format("%02d:%02d:%02d", (int) (totalTime.toHours() % 24),
+                    (int) (totalTime.toMinutes() % 60),
+                    (int) (totalTime.getSeconds() % 60));
+        }
+        return totalDuration;
+    }
+
+    private void setTotalDuration(String totalDuration) {
+        this.totalDuration = totalDuration;
     }
 
     public CyclingMonth(LocalDate date, Integer totalDays, Double totalDistance, Duration totalTime) {

@@ -30,7 +30,10 @@ public class CyclingDay {
     private Double avgSpeed;
     private WindCondition windCondition;
     private String comments;
+    @JsonIgnore
     private Duration duration;
+    @Transient
+    private String totalTime = getTotalTime();
     private Double cyclingQuality;
 
     public CyclingDay() {
@@ -162,6 +165,19 @@ public class CyclingDay {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getTotalTime() {
+        if (duration != null) {
+            return String.format("%02d:%02d:%02d", (int) (duration.toHours() % 24),
+                    (int) (duration.toMinutes() % 60),
+                    (int) (duration.getSeconds() % 60));
+        }
+        return totalTime;
+    }
+
+    private void setTotalTime(String totalTime) {
+        this.totalTime = totalTime;
     }
 
     @Override
