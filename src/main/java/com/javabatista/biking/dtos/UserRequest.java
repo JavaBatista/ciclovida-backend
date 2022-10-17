@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class UserRequest {
     private int userId;
+    private String name;
     private LocalDate date;
 
     public int getUserId() {
@@ -20,5 +21,13 @@ public class UserRequest {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

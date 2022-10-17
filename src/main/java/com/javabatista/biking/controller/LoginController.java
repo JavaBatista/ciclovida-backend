@@ -24,6 +24,7 @@ public class LoginController {
 
         if(user!=null) {
             response.setUserId(user.getId());
+            response.setName(user.getName());
             response.setDate(LocalDate.now());
         }
 
