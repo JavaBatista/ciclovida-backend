@@ -21,6 +21,7 @@ public class LoginController {
     @Autowired
     private UserRepository repository;
 
+    @CrossOrigin
     @GetMapping("/login")
     public ResponseEntity<UserRequest> logar(@RequestHeader(HttpHeaders.AUTHORIZATION) String header) {
         String[] parts = header.split(" ", 2);
