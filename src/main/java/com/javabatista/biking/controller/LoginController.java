@@ -32,7 +32,7 @@ public class LoginController {
         String username = parts[0];
 
         UserRequest response = new UserRequest();
-        User user = repository.findByUsername(username);
+        User user = repository.findByEmail(username);
         if(user!=null) {
             response.setUserId(user.getId());
             response.setName(user.getName());

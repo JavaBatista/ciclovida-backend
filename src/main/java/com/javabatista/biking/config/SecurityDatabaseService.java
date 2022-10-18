@@ -27,13 +27,13 @@ public class SecurityDatabaseService  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User userEntity = userRepository.findByUsername(username);
+        User userEntity = userRepository.findByEmail(username);
         if (userEntity == null) {
             throw new UsernameNotFoundException(username);
         }
         Set<GrantedAuthority> authorities = new HashSet<>();
         userEntity.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
-        UserDetails user = new org.springframework.security.core.userdetails.User(userEntity.getUsername(),
+        UserDetails user = new org.springframework.security.core.userdetails.User(userEntity.getEmail(),
                 userEntity.getPassword(),
                 authorities);
         return user;

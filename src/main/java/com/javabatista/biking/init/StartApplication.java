@@ -52,7 +52,7 @@ public class StartApplication implements CommandLineRunner {
         inserData("Maria Silva");
 //        inserData("Sergio Borges");
 
-//        testQuery("gabriel");
+//        testQuery("gabriel@user.com");
 
     }
 
@@ -83,8 +83,8 @@ public class StartApplication implements CommandLineRunner {
         }
     }
 
-    private void testQuery(String name) {
-        User user = repository.findByUsername(name);
+    private void testQuery(String email) {
+        User user = repository.findByEmail(email);
         List<CyclingDay> days = null;
         List<CyclingMonth> months = null;
         List<LocalDate> dates = null;
