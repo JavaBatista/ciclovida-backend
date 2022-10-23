@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.javabatista</groupId>
-	<artifactId>biking-backend</artifactId>
+	<artifactId>ciclovida-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>biking</name>
-	<description>Backend para o aplicativo Biking</description>
+	<name>ciclovida</name>
+	<description>Backend para o aplicativo CicloVida</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
